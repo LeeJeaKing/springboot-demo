@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户编辑</title>
+</head>
+<body>
+<form action="{% url 'User:create' %}" method="POST">
+{% csrf_token %}
+    {% if error %}
+        {% for key,error in error.items %}
+            {{ error }} <br>
+        {% endfor %}
+    {% endif %}
+    <input type="hidden" name="uid" autocomplete="off" value="{{ user.id }}">
+    用户名:<input type="text" name="name" autocomplete="off" value="{{ user.name }}"> <br>
+    密码:<input type="text" name="password" autocomplete="off" value="{{ user.name }}"> <br>
+    联系方式:<input type="text" name="tel" autocomplete="off" value="{{ user.tel }}"> <br>
+    年龄:<input type="text" name="age" autocomplete="off" value="{{ user.age }}"> <br>
+    性别:<input type="radio" name="sex" autocomplete="off" value="1" {% if user.sex == 1 %} checked {% endif %}> 男
+    <input type="radio" name="sex" autocomplete="off" value="0" {% if user.sex == 0 %} checked {% endif %}> 女 <br>
+    <input type="submit" value="创建"> <br>
+    {% if errors %}
+        {% for key,error in errors.items %}
+            {{ error }} <br>
+        {% endfor %}
+    {% endif %}
+</form>
+</body>
+</html>
